@@ -7,7 +7,7 @@ export function LoginButton() {
 
   return (
     <PrimaryButton className="mt-4 w-full" aria-disabled={pending}>
-      Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+      Sign up <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </PrimaryButton>
   );
 }
