@@ -8,6 +8,7 @@ import {
   AtSymbolIcon,
   KeyIcon,
   ExclamationCircleIcon,
+  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { LoginButton } from './buttons';
 import { useFormState } from 'react-dom';
@@ -21,6 +22,22 @@ export default function Form() {
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className="mb-3 text-2xl">Please log in to continue.</h1>
         <div className="w-full">
+          <div>
+            <label
+              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              htmlFor="nickname"
+            >
+              Nickname
+            </label>
+            <InputWithIcon
+              id="nickname"
+              type="text"
+              name="nickname"
+              placeholder="Enter your nickname"
+              required
+              Icon={UserCircleIcon}
+            />
+          </div>
           <div>
             <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
