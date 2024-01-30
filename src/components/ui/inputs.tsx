@@ -1,12 +1,11 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-export interface InputWithIconProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  Icon: React.ElementType<React.ComponentPropsWithRef<'svg'>>;
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  Icon?: React.ElementType<React.ComponentPropsWithRef<'svg'>>;
 }
 
-const InputWithIcon = React.forwardRef<HTMLInputElement, InputWithIconProps>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ Icon, className, ...props }, ref) => {
     return (
       <div className="relative">
@@ -14,16 +13,19 @@ const InputWithIcon = React.forwardRef<HTMLInputElement, InputWithIconProps>(
           {...props}
           ref={ref}
           className={cn(
-            'peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500',
+            'peer block w-full rounded-md border border-gray-200 py-[9px] text-sm outline-2 placeholder:text-gray-500',
+            Icon ? 'pl-10' : 'pl-4',
             className,
           )}
         />
-        <Icon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+        {Icon && (
+          <Icon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+        )}
       </div>
     );
   },
 );
 
-InputWithIcon.displayName = 'InputWithIcon';
+Input.displayName = 'InputWithIcon';
 
-export { InputWithIcon };
+export default Input;
