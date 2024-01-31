@@ -111,8 +111,8 @@ export default function Form() {
           </div>
           {error && (
             <div className="mt-4 flex items-center justify-center">
-              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-              <span className="ml-2 text-sm text-red-500">{error}</span>
+              <ExclamationCircleIcon className="h-5 w-5 text-red-400" />
+              <span className="ml-2 text-sm text-red-400">{error}</span>
             </div>
           )}
           <div className="mt-6">
