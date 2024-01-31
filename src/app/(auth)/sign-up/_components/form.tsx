@@ -116,7 +116,7 @@ export default function Form() {
             </div>
           )}
           <div className="mt-6">
-            <SignUpButton type="submit" disabled={isPending} />
+            <SignUpButton />
           </div>
         </div>
       </form>
