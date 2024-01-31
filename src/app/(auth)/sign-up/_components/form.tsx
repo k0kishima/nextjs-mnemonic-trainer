@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import { signUp } from '../_actions';
 import {
   AtSymbolIcon,
@@ -7,7 +8,7 @@ import {
   ExclamationCircleIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
-import { SignUpButton } from './buttons';
+import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import Input from '@/components/ui/inputs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -15,6 +16,9 @@ import * as z from 'zod';
 import { signUpSchema } from '../_schemas';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
+import { buttonVariants } from '@/components/ui/buttons';
+
+const buttonClassName = buttonVariants();
 
 const ErrorMessage = ({ message }: { message?: string }) => {
   if (!message) return null;
@@ -39,7 +43,7 @@ export default function Form() {
     formState: { errors },
   } = form;
 
-  const onSubmit = (values: z.infer<typeof signUpSchema>) => {
+  const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
     setError('');
 
     startTransition(async () => {
@@ -116,7 +120,13 @@ export default function Form() {
             </div>
           )}
           <div className="mt-6">
-            <SignUpButton />
+            <button
+              className={cn(buttonClassName, 'w-full')}
+              disabled={isPending}
+              type="submit"
+            >
+              Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+            </button>
           </div>
         </div>
       </form>
