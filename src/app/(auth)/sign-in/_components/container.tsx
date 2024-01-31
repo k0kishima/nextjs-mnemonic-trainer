@@ -11,12 +11,12 @@ export default function Container() {
         <Form />
         <div className="text-center text-sm text-gray-600">
           <p>
-            Do you have an account?
+            Don&apos;t have an account?
             <Link
-              href="/sign-in"
+              href="/sign-up"
               className="ml-2 text-blue-500 hover:text-blue-600 hover:underline"
             >
-              Log in
+              Sign up
             </Link>
           </p>
         </div>

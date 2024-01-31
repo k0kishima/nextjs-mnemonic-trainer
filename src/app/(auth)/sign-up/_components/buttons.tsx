@@ -1,24 +1,19 @@
-import { PrimaryButton } from '@/components/ui/buttons';
+import { cn } from '@/lib/utils';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { useFormStatus } from 'react-dom';
-import { ButtonHTMLAttributes } from 'react';
+import { buttonVariants } from '@/components/ui/buttons';
 
-export function SignUpButton({
-  type,
-  disabled,
-}: {
-  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  disabled: boolean;
-}) {
+export function SignUpButton() {
   const { pending } = useFormStatus();
+  const buttonClassName = buttonVariants();
 
   return (
-    <PrimaryButton
-      className="mt-4 w-full"
-      aria-disabled={pending || disabled}
-      type={type}
+    <button
+      className={cn(buttonClassName, 'w-full')}
+      disabled={pending}
+      type="submit"
     >
       Sign up <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
-    </PrimaryButton>
+    </button>
   );
 }
