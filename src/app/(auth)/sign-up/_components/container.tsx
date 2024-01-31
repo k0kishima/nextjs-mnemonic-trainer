@@ -1,4 +1,5 @@
 import Form from './form';
+import Link from 'next/link';
 
 export default function Container() {
   return (
@@ -8,6 +9,17 @@ export default function Container() {
           <div className="w-32 text-white md:w-36"></div>
         </div>
         <Form />
+        <div className="text-center text-sm text-gray-600">
+          <p>
+            Do you have an account?
+            <Link
+              href="/sign-in"
+              className="ml-2 text-blue-500 hover:text-blue-600 hover:underline"
+            >
+              Log in
+            </Link>
+          </p>
+        </div>
       </div>
     </main>
   );
