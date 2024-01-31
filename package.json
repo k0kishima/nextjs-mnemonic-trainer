@@ -14,9 +14,10 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^1.1.0",
     "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.4",
-    "@prisma/client": "^5.8.1",
+    "@prisma/client": "^5.9.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.0",
