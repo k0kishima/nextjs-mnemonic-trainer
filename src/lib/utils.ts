@@ -9,3 +9,7 @@ export const handleError = (error: unknown) => {
   console.error(error);
   throw new Error(typeof error === 'string' ? error : JSON.stringify(error));
 };
+
+export function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
