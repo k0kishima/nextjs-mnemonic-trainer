@@ -1,30 +1,24 @@
-import bcrypt from 'bcryptjs';
 import type { NextAuthConfig } from 'next-auth';
-import Credentials from 'next-auth/providers/credentials';
-import { signInSchema } from '@/schemas';
-import { getUserByEmail } from '@/db/user';
 
-export default {
+export const authConfig = {
+  pages: {
+    signIn: '/sign-in',
+  },
   providers: [
-    // TODO: Google,Github認証を追加する
-
-    Credentials({
-      async authorize(credentials) {
-        const validatedFields = signInSchema.safeParse(credentials);
-
-        if (validatedFields.success) {
-          const { email, password } = validatedFields.data;
-
-          const user = await getUserByEmail(email);
-          if (!user || !user.password) return null;
-
-          const passwordsMatch = await bcrypt.compare(password, user.password);
-
-          if (passwordsMatch) return user;
-        }
-
-        return null;
-      },
-    }),
+    // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
+    // while this file is also used in non-Node.js environments
   ],
+  callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+      if (isOnDashboard) {
+        if (isLoggedIn) return true;
+        return false; // Redirect unauthenticated users to login page
+      } else if (isLoggedIn) {
+        return Response.redirect(new URL('/dashboard', nextUrl));
+      }
+      return true;
+    },
+  },
 } satisfies NextAuthConfig;

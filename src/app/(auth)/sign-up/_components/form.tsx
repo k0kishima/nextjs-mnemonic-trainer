@@ -6,7 +6,6 @@ import {
   AtSymbolIcon,
   KeyIcon,
   ExclamationCircleIcon,
-  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import Input from '@/components/ui/inputs';
@@ -33,7 +32,6 @@ export default function Form() {
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
-      nickname: '',
       email: '',
       password: '',
     },
@@ -67,22 +65,6 @@ export default function Form() {
             <div>
               <label
                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-                htmlFor="nickname"
-              >
-                Nickname
-              </label>
-              <Input
-                id="nickname"
-                type="text"
-                {...form.register('nickname')}
-                placeholder="Enter your nickname"
-                Icon={UserCircleIcon}
-              />
-              <ErrorMessage message={errors.nickname?.message} />
-            </div>
-            <div>
-              <label
-                className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                 htmlFor="email"
               >
                 Email
@@ -112,6 +94,22 @@ export default function Form() {
               />
               <ErrorMessage message={errors.password?.message} />
             </div>
+            <div className="mt-4">
+              <label
+                className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+                htmlFor="passwordConfirmation"
+              >
+                Confirm Password
+              </label>
+              <Input
+                id="passwordConfirmation"
+                type="password"
+                {...form.register('passwordConfirmation')}
+                placeholder="Confirm your password"
+                Icon={KeyIcon}
+              />
+              <ErrorMessage message={errors.passwordConfirmation?.message} />
+            </div>
           </div>
           {error && (
             <div className="mt-4 flex items-center justify-center">
@@ -125,7 +123,8 @@ export default function Form() {
               disabled={isPending}
               type="submit"
             >
-              Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+              Sign up{' '}
+              <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
             </button>
           </div>
         </div>
