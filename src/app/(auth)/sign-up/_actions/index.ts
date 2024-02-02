@@ -33,7 +33,7 @@ export const signUp = async (
     };
   }
 
-  const { email, password, nickname } = validatedFields.data;
+  const { email, password } = validatedFields.data;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -51,7 +51,6 @@ export const signUp = async (
 
     await db.user.create({
       data: {
-        name: nickname,
         email,
         password: hashedPassword,
       },
