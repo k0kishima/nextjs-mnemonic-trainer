@@ -26,6 +26,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   },
 );
 
-Input.displayName = 'InputWithIcon';
+Input.displayName = 'Input';
 
 export default Input;
