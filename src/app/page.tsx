@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -22,6 +23,15 @@ export default function Home() {
             priority
           />
         </div>
+        <p>
+          Do you have an account?
+          <Link
+            href="/sign-in"
+            className="ml-2 text-primary hover:text-primary-hover hover:underline"
+          >
+            Log in
+          </Link>
+        </p>
       </div>
 
       <footer className="mt-10">
