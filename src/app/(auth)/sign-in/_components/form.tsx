@@ -22,7 +22,7 @@ const buttonClassName = buttonVariants();
 const ErrorMessage = ({ message }: { message?: string }) => {
   if (!message) return null;
 
-  return <p className="mt-2 text-sm text-red-400">{message}</p>;
+  return <p className="mt-2 text-sm text-destructive">{message}</p>;
 };
 
 /**
@@ -100,8 +100,8 @@ export function Form() {
           </div>
           {error && (
             <div className="mt-4 flex items-center justify-center">
-              <ExclamationCircleIcon className="h-5 w-5 text-red-400" />
-              <span className="ml-2 text-sm text-red-400">{error}</span>
+              <ExclamationCircleIcon className="h-5 w-5 text-destructive" />
+              <span className="ml-2 text-sm text-destructive">{error}</span>
             </div>
           )}
           <div className="mt-6">
