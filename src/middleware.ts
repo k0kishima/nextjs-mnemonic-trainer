@@ -1,7 +1,11 @@
 import NextAuth from 'next-auth';
 import { authConfig } from '@/auth.config';
 import { NextRequest, NextResponse } from 'next/server';
-import { AVAILABLE_LOCALES, DEFAULT_LOCALE, extractLocale } from './lib/i18n';
+import {
+  AVAILABLE_LOCALES,
+  DEFAULT_LOCALE,
+  extractLocale,
+} from '@/app/(user)/[locale]/_i18n';
 
 export const config = {
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
