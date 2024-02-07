@@ -1,0 +1,10 @@
+{
+  "app_name": "Memory Training App",
+  "catch_copy": "Practice every day to improve your memory",
+  "footer_copy": "{{year}} {{appName}}. All rights reserved.",
+  "sign_in_prompt": "Do you have an account?",
+  "sign_in_action": "Log in",
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Confirm Password"
+}

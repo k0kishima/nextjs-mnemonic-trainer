@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTranslations, Locale } from '../_i18n';
+import { getTranslation } from '@/app/i18n/server';
 
 export default async function Home({
-  params: { locale },
+  params: { lang },
 }: Readonly<{
-  params: { locale: Locale };
+  params: { lang: string };
 }>) {
-  const t = await getTranslations(locale);
+  const { t } = await getTranslation(lang);
 
   return (
     <main className="bg-soft-red flex min-h-screen flex-col items-center justify-center p-4">
@@ -27,20 +27,22 @@ export default async function Home({
           />
         </div>
         <p>
-          {t('login_prompt')}
+          {t('sign_in_prompt')}
           <Link
             href="/sign-in"
             className="ml-2 text-primary hover:text-primary-hover hover:underline"
           >
-            {t('login_action')}
+            {t('sign_in_action')}
           </Link>
         </p>
       </div>
 
       <footer className="mt-10">
         <p className="text-dark-blue">
-          &copy; {new Date().getFullYear()}{' '}
-          {t('footer_copy', { appName: t('app_name') })}
+          {t('footer_copy', {
+            year: new Date().getFullYear(),
+            appName: t('app_name'),
+          })}
         </p>
       </footer>
     </main>

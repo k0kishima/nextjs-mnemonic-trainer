@@ -16,6 +16,7 @@ import { signUpSchema } from '../_schemas';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { buttonVariants } from '@/components/ui/buttons';
+import { useLanguage, useTranslation } from '@/app/i18n/client';
 
 const buttonClassName = buttonVariants();
 
@@ -31,6 +32,8 @@ const ErrorMessage = ({ message }: { message?: string }) => {
 export function Form() {
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
+  const { language } = useLanguage();
+  const { t } = useTranslation(language);
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -63,14 +66,14 @@ export function Form() {
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-          <h1 className="mb-3 text-2xl">Please sign up to continue.</h1>
+          <h1 className="mb-3 text-2xl">{t('sign-up:sign_up_prompt')}</h1>
           <div className="w-full">
             <div>
               <label
                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                 htmlFor="email"
               >
-                Email
+                {t('email')}
               </label>
               <Input
                 id="email"
@@ -86,7 +89,7 @@ export function Form() {
                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                 htmlFor="password"
               >
-                Password
+                {t('password')}
               </label>
               <Input
                 id="password"
@@ -102,7 +105,7 @@ export function Form() {
                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                 htmlFor="passwordConfirmation"
               >
-                Confirm Password
+                {t('confirm_password')}
               </label>
               <Input
                 id="passwordConfirmation"
@@ -126,7 +129,7 @@ export function Form() {
               disabled={isPending}
               type="submit"
             >
-              Sign up{' '}
+              {t('sign-up:submit')}
               <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
             </button>
           </div>

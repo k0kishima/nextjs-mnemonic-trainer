@@ -1,0 +1,10 @@
+{
+  "app_name": "記憶術訓練アプリ",
+  "catch_copy": "記憶力向上のための習慣作り",
+  "footer_copy": "{{year}} {{appName}}. All rights reserved.",
+  "sign_in_prompt": "アカウントをお持ちですか？",
+  "sign_in_action": "ログイン",
+  "email": "メールアドレス",
+  "password": "パスワード",
+  "confirm_password": "パスワード確認"
+}

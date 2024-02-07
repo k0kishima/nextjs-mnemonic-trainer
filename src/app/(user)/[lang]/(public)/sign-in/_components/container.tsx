@@ -1,11 +1,17 @@
+'use client';
+
 import { Form } from './form';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLanguage, useTranslation } from '@/app/i18n/client';
 
 /**
  * @package
  */
 export function Container() {
+  const { language } = useLanguage();
+  const { t } = useTranslation(language);
+
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
@@ -25,12 +31,12 @@ export function Container() {
         <Form />
         <div className="text-center text-sm text-secondary">
           <p>
-            Don&apos;t have an account?
+            {t('sign-in:sign_up_prompt')}
             <Link
               href="/sign-up"
               className="ml-2 text-primary hover:text-primary-hover hover:underline"
             >
-              Sign up
+              {t('sign-in:sign_up_action')}
             </Link>
           </p>
         </div>

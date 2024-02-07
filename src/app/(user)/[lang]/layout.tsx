@@ -1,8 +1,8 @@
+import { dir } from 'i18next';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@/app/globals.css';
 import { Toaster } from '@/components/ui/sonner';
-import { DEFAULT_LOCALE } from './_i18n';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  params,
+  params: { lang },
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
+  params: { lang: string };
 }>) {
   return (
-    <html lang={params.locale || DEFAULT_LOCALE}>
+    <html lang={lang} dir={dir(lang)}>
       <body className={inter.className}>
         <Toaster />
         {children}
