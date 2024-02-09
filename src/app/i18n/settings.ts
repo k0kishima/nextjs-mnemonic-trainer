@@ -1,6 +1,7 @@
 export const defaultLanguage = 'ja';
 export const availableLanguages = [defaultLanguage, 'en'];
 export const namespaces = ['translation', 'sign-up', 'sign-in'];
+export const cookieName = 'i18next';
 
 export function getOptions(lng = defaultLanguage) {
   return {

@@ -2,7 +2,11 @@ import NextAuth from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 import Negotiator from 'negotiator';
 import { authConfig } from '@/auth.config';
-import { defaultLanguage, availableLanguages } from '@/app/i18n/settings';
+import {
+  defaultLanguage,
+  availableLanguages,
+  cookieName,
+} from '@/app/i18n/settings';
 
 const getNegotiatedLanguage = (
   headers: Negotiator.Headers,
@@ -21,7 +25,10 @@ export async function middleware(request: NextRequest) {
   const headers = {
     'accept-language': request.headers.get('accept-language') ?? '',
   };
-  const preferredLanguage = getNegotiatedLanguage(headers) || defaultLanguage;
+  const preferredLanguage =
+    request.cookies.get(cookieName)?.value ||
+    getNegotiatedLanguage(headers) ||
+    defaultLanguage;
 
   // auth
   const dashboardRegex = new RegExp(
@@ -52,6 +59,12 @@ export async function middleware(request: NextRequest) {
       const newPathname = `/${defaultLanguage}${pathname}`;
       return NextResponse.rewrite(new URL(newPathname, request.url));
     }
+  }
+
+  if (!request.cookies.has(cookieName)) {
+    const response = NextResponse.next();
+    response.cookies.set(cookieName, preferredLanguage);
+    return response;
   }
 
   return NextResponse.next();
