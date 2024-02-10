@@ -1,0 +1,25 @@
+{
+  "app_name": "記憶術訓練アプリ",
+  "catch_copy": "記憶力向上のための習慣作り",
+  "footer_copy": "{{year}} {{appName}}. All rights reserved.",
+  "sign_in_prompt": "アカウントをお持ちですか？",
+  "sign_in_action": "ログイン",
+  "email": "メールアドレス",
+  "password": "パスワード",
+  "confirm_password": "パスワード確認",
+  "messages": {
+    "info": {
+      "enter_email": "メールアドレスを入力してください",
+      "enter_password": "パスワードを入力してください",
+      "confirm_password": "パスワードを再入力してください",
+      "successfully_logged_in": "ログインに成功しました。",
+      "successfully_signed_in": "サインアップに成功しました。"
+    },
+    "errors": {
+      "invalid_credential": "メールアドレスまたはパスワードが間違っています。",
+      "failed_to_logged_in": "ログインに失敗しました。",
+      "failed_to_signed_up": "サインアップに失敗しました。",
+      "email_already_registered": "そのメールアドレスはすでに登録されています。"
+    }
+  }
+}
