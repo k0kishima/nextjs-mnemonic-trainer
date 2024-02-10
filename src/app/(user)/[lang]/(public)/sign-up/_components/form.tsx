@@ -11,12 +11,11 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import Input from '@/components/ui/inputs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FormProvider } from 'react-hook-form';
-import * as z from 'zod';
 import { signUpSchema } from '../_schemas';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { buttonVariants } from '@/components/ui/buttons';
-import { useLanguage, useTranslation } from '@/app/i18n/client';
+import { useLanguage, useTranslation, z } from '@/app/i18n/client';
 
 const buttonClassName = buttonVariants();
 
@@ -79,7 +78,7 @@ export function Form() {
                 id="email"
                 type="email"
                 {...form.register('email')}
-                placeholder="Enter your email address"
+                placeholder={t('messages.info.enter_email')}
                 Icon={AtSymbolIcon}
               />
               <ErrorMessage message={errors.email?.message} />
@@ -95,7 +94,7 @@ export function Form() {
                 id="password"
                 type="password"
                 {...form.register('password')}
-                placeholder="Enter password"
+                placeholder={t('messages.info.enter_password')}
                 Icon={KeyIcon}
               />
               <ErrorMessage message={errors.password?.message} />
@@ -111,7 +110,7 @@ export function Form() {
                 id="passwordConfirmation"
                 type="password"
                 {...form.register('passwordConfirmation')}
-                placeholder="Confirm your password"
+                placeholder={t('messages.info.confirm_password')}
                 Icon={KeyIcon}
               />
               <ErrorMessage message={errors.passwordConfirmation?.message} />

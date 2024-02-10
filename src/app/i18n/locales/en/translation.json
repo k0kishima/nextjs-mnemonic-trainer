@@ -6,5 +6,12 @@
   "sign_in_action": "Log in",
   "email": "Email",
   "password": "Password",
-  "confirm_password": "Confirm Password"
+  "confirm_password": "Confirm Password",
+  "messages": {
+    "info": {
+      "enter_email": "Enter your email address",
+      "enter_password": "Enter password.",
+      "confirm_password": "Confirm your password"
+    }
+  }
 }

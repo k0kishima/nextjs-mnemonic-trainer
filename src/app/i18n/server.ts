@@ -2,6 +2,8 @@ import { createInstance } from 'i18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next/initReactI18next';
 import { getOptions, defaultLanguage } from './settings';
+import { z } from 'zod';
+import { zodI18nMap } from 'zod-i18n-map';
 
 const initI18next = async (lang: string) => {
   const i18nInstance = createInstance();
@@ -16,6 +18,9 @@ const initI18next = async (lang: string) => {
     .init(getOptions(lang));
   return i18nInstance;
 };
+z.setErrorMap(zodI18nMap);
+
+export { z };
 
 export async function getTranslation(lang = defaultLanguage) {
   const i18nextInstance = await initI18next(lang);
