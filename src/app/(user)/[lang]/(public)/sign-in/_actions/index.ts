@@ -6,6 +6,9 @@ import { signIn as NextAuthSignIn } from '@/auth';
 import { signInSchema } from '@/schemas';
 import { getUserByEmail } from '@/db/user';
 import { AuthError } from 'next-auth';
+import { cookies } from 'next/headers';
+import { cookieName, defaultLanguage } from '@/app/i18n/settings';
+import { getTranslation } from '@/app/i18n/server';
 
 const DEFAULT_LOGIN_REDIRECT = '/';
 
@@ -27,6 +30,10 @@ export type ActionsResultWithData<T> =
 export const signIn = async (
   values: z.infer<typeof signInSchema>,
 ): Promise<ActionsResultWithData<boolean>> => {
+  const cookieStore = cookies();
+  const lang = cookieStore.get(cookieName)?.value || defaultLanguage;
+  const { t } = await getTranslation(lang);
+
   const validatedFields = signInSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -45,7 +52,7 @@ export const signIn = async (
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return {
       isSuccess: false,
-      error: { message: 'Email address or password is incorrect.' },
+      error: { message: t('messages.errors.invalid_credential') },
     };
   }
 
@@ -58,7 +65,7 @@ export const signIn = async (
 
     return {
       isSuccess: true,
-      message: 'Successfully logged in.',
+      message: t('messages.info.successfully_logged_in'),
       data: {
         isTwoFactorEnabled: false,
       },
@@ -69,13 +76,13 @@ export const signIn = async (
         case 'CredentialsSignin':
           return {
             isSuccess: false,
-            error: { message: 'Email address or password is incorrect.' },
+            error: { message: t('messages.errors.invalid_credential') },
           };
         default:
           return {
             isSuccess: false,
             error: {
-              message: 'Failed to logged in.',
+              message: t('messages.errors.failed_to_logged_in'),
             },
           };
       }

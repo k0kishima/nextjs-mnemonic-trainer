@@ -6,6 +6,9 @@ import bcrypt from 'bcryptjs';
 import { getUserByEmail } from '@/db/user';
 import { db } from '@/lib/db';
 import { handleError } from '@/lib/utils';
+import { cookies } from 'next/headers';
+import { cookieName, defaultLanguage } from '@/app/i18n/settings';
+import { getTranslation } from '@/app/i18n/server';
 
 type ActionsResult =
   | {
@@ -22,6 +25,10 @@ type ActionsResult =
 export const signUp = async (
   values: z.infer<typeof signUpSchema>,
 ): Promise<ActionsResult> => {
+  const cookieStore = cookies();
+  const lang = cookieStore.get(cookieName)?.value || defaultLanguage;
+  const { t } = await getTranslation(lang);
+
   const validatedFields = signUpSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -44,7 +51,7 @@ export const signUp = async (
       return {
         isSuccess: false,
         error: {
-          message: 'This email is already registered.',
+          message: t('messages.errors.email_already_registered'),
         },
       };
     }
@@ -58,7 +65,7 @@ export const signUp = async (
 
     return {
       isSuccess: true,
-      message: 'You have successfully signed up.',
+      message: t('messages.info.successfully_signed_in'),
     };
   } catch (error) {
     handleError(error);
@@ -66,7 +73,7 @@ export const signUp = async (
     return {
       isSuccess: false,
       error: {
-        message: 'You have failed to sign up.',
+        message: t('messages.errors.failed_to_signed_up'),
       },
     };
   }

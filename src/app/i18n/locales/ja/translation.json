@@ -11,7 +11,15 @@
     "info": {
       "enter_email": "メールアドレスを入力してください",
       "enter_password": "パスワードを入力してください",
-      "confirm_password": "パスワードを再入力してください"
+      "confirm_password": "パスワードを再入力してください",
+      "successfully_logged_in": "ログインに成功しました。",
+      "successfully_signed_in": "サインアップに成功しました。"
+    },
+    "errors": {
+      "invalid_credential": "メールアドレスまたはパスワードが間違っています。",
+      "failed_to_logged_in": "ログインに失敗しました。",
+      "failed_to_signed_up": "サインアップに失敗しました。",
+      "email_already_registered": "そのメールアドレスはすでに登録されています。"
     }
   }
 }

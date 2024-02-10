@@ -11,7 +11,15 @@
     "info": {
       "enter_email": "Enter your email address",
       "enter_password": "Enter password.",
-      "confirm_password": "Confirm your password"
+      "confirm_password": "Confirm your password",
+      "successfully_logged_in": "Successfully logged in.",
+      "successfully_signed_in": "You have successfully signed up."
+    },
+    "errors": {
+      "invalid_credential": "Email address or password is incorrect.",
+      "failed_to_logged_in": "Failed to logged in.",
+      "failed_to_signed_up": "You have failed to sign up.",
+      "email_already_registered": "This email is already registered."
     }
   }
 }
