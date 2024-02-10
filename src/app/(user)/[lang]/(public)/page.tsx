@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getTranslation } from '@/app/i18n/server';
+import { LanguageSwitcher } from '../_components/';
 
 export default async function Home({
   params: { lang },
@@ -37,13 +38,14 @@ export default async function Home({
         </p>
       </div>
 
-      <footer className="mt-10">
-        <p className="text-dark-blue">
+      <footer className="mt-10 flex w-full flex-col items-center justify-between p-4 sm:flex-row sm:items-start sm:justify-center">
+        <p className="mb-4 text-center text-secondary sm:mb-0 sm:mr-4 sm:text-left">
           {t('footer_copy', {
             year: new Date().getFullYear(),
             appName: t('app_name'),
           })}
         </p>
+        <LanguageSwitcher currentLanguage={lang} />
       </footer>
     </main>
   );
