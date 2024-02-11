@@ -20,6 +20,29 @@ model User {
   email         String   @unique
   password      String
   role          UserRole @default(USER)
+}
 
-  @@map(name: "users")
+model Word {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  examinations  Examination[]
+}
+
+model Examination {
+  id           String    @id @default(cuid())
+  rememberedAt DateTime?
+  answeredAt   DateTime?
+  createdAt    DateTime  @default(now())
+  words        Word[]
+  answers      Answer[]
+}
+
+model Answer {
+  id            Int          @id @default(autoincrement())
+  value         String
+  position      Int
+  examinationId String
+  examination   Examination  @relation(fields: [examinationId], references: [id])
+
+  @@unique([examinationId, position])
 }
