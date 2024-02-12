@@ -40,19 +40,20 @@ CREATE TABLE `Answer` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `_ExaminationToWord` (
-    `A` VARCHAR(191) NOT NULL,
-    `B` INTEGER NOT NULL,
+CREATE TABLE `ExaminationWord` (
+    `examinationId` VARCHAR(191) NOT NULL,
+    `wordId` INTEGER NOT NULL,
+    `position` INTEGER NOT NULL,
 
-    UNIQUE INDEX `_ExaminationToWord_AB_unique`(`A`, `B`),
-    INDEX `_ExaminationToWord_B_index`(`B`)
+    UNIQUE INDEX `ExaminationWord_examinationId_position_key`(`examinationId`, `position`),
+    PRIMARY KEY (`examinationId`, `wordId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
 ALTER TABLE `Answer` ADD CONSTRAINT `Answer_examinationId_fkey` FOREIGN KEY (`examinationId`) REFERENCES `Examination`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_ExaminationToWord` ADD CONSTRAINT `_ExaminationToWord_A_fkey` FOREIGN KEY (`A`) REFERENCES `Examination`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `ExaminationWord` ADD CONSTRAINT `ExaminationWord_examinationId_fkey` FOREIGN KEY (`examinationId`) REFERENCES `Examination`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_ExaminationToWord` ADD CONSTRAINT `_ExaminationToWord_B_fkey` FOREIGN KEY (`B`) REFERENCES `Word`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `ExaminationWord` ADD CONSTRAINT `ExaminationWord_wordId_fkey` FOREIGN KEY (`wordId`) REFERENCES `Word`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
