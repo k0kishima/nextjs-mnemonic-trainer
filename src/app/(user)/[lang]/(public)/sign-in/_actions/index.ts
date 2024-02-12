@@ -10,7 +10,7 @@ import { cookies } from 'next/headers';
 import { cookieName, defaultLanguage } from '@/app/i18n/settings';
 import { getTranslation } from '@/app/i18n/server';
 
-const DEFAULT_LOGIN_REDIRECT = '/';
+const DEFAULT_LOGIN_REDIRECT = '/dashboard';
 
 export type ActionsResultWithData<T> =
   | {
