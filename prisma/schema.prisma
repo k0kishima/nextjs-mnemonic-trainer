@@ -16,33 +16,44 @@ enum UserRole {
 }
 
 model User {
-  id            String   @id @default(cuid())
-  email         String   @unique
-  password      String
-  role          UserRole @default(USER)
+  id       String   @id @default(cuid())
+  email    String   @unique
+  password String
+  role     UserRole @default(USER)
 }
 
 model Word {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  examinations  Examination[]
+  id           Int               @id @default(autoincrement())
+  name         String            @unique
+  examinations ExaminationWord[]
 }
 
 model Examination {
-  id           String    @id @default(cuid())
+  id           String            @id @default(cuid())
   rememberedAt DateTime?
   answeredAt   DateTime?
-  createdAt    DateTime  @default(now())
-  words        Word[]
+  createdAt    DateTime          @default(now())
+  words        ExaminationWord[]
   answers      Answer[]
 }
 
 model Answer {
-  id            Int          @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   value         String
   position      Int
   examinationId String
-  examination   Examination  @relation(fields: [examinationId], references: [id])
+  examination   Examination @relation(fields: [examinationId], references: [id])
 
+  @@unique([examinationId, position])
+}
+
+model ExaminationWord {
+  examination   Examination @relation(fields: [examinationId], references: [id])
+  examinationId String
+  word          Word        @relation(fields: [wordId], references: [id])
+  wordId        Int
+  position      Int
+
+  @@id([examinationId, wordId])
   @@unique([examinationId, position])
 }
