@@ -9,6 +9,7 @@ const getRandomIds = (max: number, n: number) => {
   return Array.from(ids);
 };
 
+// TODO: 単語がない場合はエラーとする
 export const getRandomWords = async (n: number) => {
   const totalWords = await db.word.count();
   const randomIds = getRandomIds(totalWords, n);

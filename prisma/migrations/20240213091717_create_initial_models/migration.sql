@@ -21,6 +21,7 @@ CREATE TABLE `Word` (
 -- CreateTable
 CREATE TABLE `Examination` (
     `id` VARCHAR(191) NOT NULL,
+    `userId` VARCHAR(191) NOT NULL,
     `rememberedAt` DATETIME(3) NULL,
     `answeredAt` DATETIME(3) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -48,6 +49,9 @@ CREATE TABLE `ExaminationWord` (
     UNIQUE INDEX `ExaminationWord_examinationId_position_key`(`examinationId`, `position`),
     PRIMARY KEY (`examinationId`, `wordId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Examination` ADD CONSTRAINT `Examination_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Answer` ADD CONSTRAINT `Answer_examinationId_fkey` FOREIGN KEY (`examinationId`) REFERENCES `Examination`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
