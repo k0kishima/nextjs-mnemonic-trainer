@@ -5,6 +5,7 @@
   "extends": "next/core-web-vitals",
   "plugins": ["import-access"],
   "rules": {
-    "import-access/jsdoc": ["error"]
+    "import-access/jsdoc": ["error"],
+    "no-console": ["error", { "allow": ["warn", "error"] }]
   }
 }

@@ -2,7 +2,6 @@ import { db } from '@/lib/db';
 import { getRandomWords } from '@/db/word';
 
 export const createExamination = async (userId: string, wordQuantity = 10) => {
-  console.log(userId);
   return await db.$transaction(async (tx) => {
     const examination = await tx.examination.create({
       data: {
@@ -22,5 +21,37 @@ export const createExamination = async (userId: string, wordQuantity = 10) => {
     });
 
     return examination;
+  });
+};
+
+export const getExamination = async (examinationId: string, userId: string) => {
+  return await db.examination.findFirst({
+    where: {
+      id: examinationId,
+      userId: userId,
+    },
+    include: {
+      words: {
+        orderBy: {
+          position: 'asc',
+        },
+        include: {
+          word: true,
+        },
+      },
+    },
+  });
+};
+
+export const rememberExamination = async (
+  examinationId: string,
+  userId: string,
+) => {
+  return await db.examination.update({
+    where: {
+      id: examinationId,
+      userId: userId,
+    },
+    data: { rememberedAt: new Date() },
   });
 };

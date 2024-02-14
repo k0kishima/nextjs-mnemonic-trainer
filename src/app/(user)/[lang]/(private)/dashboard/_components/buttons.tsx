@@ -7,8 +7,14 @@ import { startExamination } from '../../_actions';
 const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   const isConfirmed = window.confirm('Would you like to start the test?');
-  if (isConfirmed) {
-    await startExamination();
+  if (!isConfirmed) {
+    return;
+  }
+  const result = await startExamination();
+  if (result.isSuccess) {
+    window.location.href = `/examinations/${result.examinationId}`;
+  } else {
+    alert(result.message.error);
   }
 };
 

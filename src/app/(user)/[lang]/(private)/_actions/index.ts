@@ -5,7 +5,7 @@ import { auth } from '@/auth';
 import { getUserByEmail } from '@/db/user';
 import { createExamination } from '@/db/examination';
 
-export type ActionsResult =
+export type SignOutActionsResult =
   | {
       isSuccess: true;
       message?: {
@@ -19,7 +19,7 @@ export type ActionsResult =
       };
     };
 
-export const signOut = async (): Promise<ActionsResult> => {
+export const signOut = async (): Promise<SignOutActionsResult> => {
   try {
     await authSignOut({ redirect: false });
     return {
@@ -36,9 +36,24 @@ export const signOut = async (): Promise<ActionsResult> => {
   }
 };
 
+export type StartExaminationActionsResult =
+  | {
+      isSuccess: true;
+      message?: {
+        info: string;
+      };
+      examinationId: string;
+    }
+  | {
+      isSuccess: false;
+      message: {
+        error: string;
+      };
+    };
+
 export const startExamination = async (
   wordQuantity = 10,
-): Promise<ActionsResult> => {
+): Promise<StartExaminationActionsResult> => {
   const sessionUser = await auth().then((session) => session?.user);
   if (!sessionUser?.email) {
     return {
@@ -57,14 +72,13 @@ export const startExamination = async (
       },
     };
   }
-  const examination = await createExamination(user.id);
-
-  console.log(examination);
+  const examination = await createExamination(user.id, wordQuantity);
 
   return {
     isSuccess: true,
     message: {
       info: 'Examination started',
     },
+    examinationId: examination.id,
   };
 };
