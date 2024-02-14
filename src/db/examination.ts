@@ -2,7 +2,6 @@ import { db } from '@/lib/db';
 import { getRandomWords } from '@/db/word';
 
 export const createExamination = async (userId: string, wordQuantity = 10) => {
-  console.log(userId);
   return await db.$transaction(async (tx) => {
     const examination = await tx.examination.create({
       data: {
