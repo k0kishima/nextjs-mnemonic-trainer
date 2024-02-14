@@ -42,3 +42,16 @@ export const getExamination = async (examinationId: string, userId: string) => {
     },
   });
 };
+
+export const rememberExamination = async (
+  examinationId: string,
+  userId: string,
+) => {
+  return await db.examination.update({
+    where: {
+      id: examinationId,
+      userId: userId,
+    },
+    data: { rememberedAt: new Date() },
+  });
+};
