@@ -12,6 +12,20 @@ export const {
   handlers: { GET, POST },
 } = NextAuth({
   ...authConfig,
+  callbacks: {
+    async session({ session }) {
+      if (session.user.email == null) {
+        throw new Error('No user found');
+      }
+      const user = await getUserByEmail(session.user.email);
+      if (user == null) {
+        throw new Error('No user found');
+      }
+      session.user.id = user.id;
+      session.user.role = user.role;
+      return session;
+    },
+  },
   providers: [
     Credentials({
       async authorize(credentials) {

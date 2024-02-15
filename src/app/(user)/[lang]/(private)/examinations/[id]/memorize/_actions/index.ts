@@ -2,7 +2,6 @@
 
 import { rememberExamination } from '@/db/examination';
 import { auth } from '@/auth';
-import { getUserByEmail } from '@/db/user';
 
 type ActionsResult =
   | {
@@ -22,7 +21,7 @@ export const rememberExaminationAction = async (
   examinationId: string,
 ): Promise<ActionsResult> => {
   const sessionUser = await auth().then((session) => session?.user);
-  if (!sessionUser?.email) {
+  if (sessionUser == null) {
     return {
       isSuccess: false,
       message: {
@@ -30,16 +29,7 @@ export const rememberExaminationAction = async (
       },
     };
   }
-  const user = await getUserByEmail(sessionUser.email);
-  if (!user) {
-    return {
-      isSuccess: false,
-      message: {
-        error: 'User not found.',
-      },
-    };
-  }
-  const examination = await rememberExamination(examinationId, user.id);
+  await rememberExamination(examinationId, sessionUser.id);
 
   return {
     isSuccess: true,
