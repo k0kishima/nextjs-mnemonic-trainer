@@ -55,3 +55,14 @@ export const rememberExamination = async (
     data: { rememberedAt: new Date() },
   });
 };
+
+export const getExaminationsForUser = async (userId: string) => {
+  return await db.examination.findMany({
+    where: {
+      userId: userId,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+};
