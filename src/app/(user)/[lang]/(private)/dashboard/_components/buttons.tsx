@@ -12,12 +12,15 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   }
   const result = await startExamination();
   if (result.isSuccess) {
-    window.location.href = `/examinations/${result.examinationId}`;
+    window.location.href = `/examinations/${result.examinationId}/memorize`;
   } else {
     alert(result.message.error);
   }
 };
 
+/**
+ * @package
+ */
 export function StartExaminationButton() {
   const buttonClassName = buttonVariants();
 
