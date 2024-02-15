@@ -26,7 +26,7 @@ export async function Container({ examinationId }: { examinationId: string }) {
   return (
     <div className="flex h-screen flex-col">
       <div className="flex-grow">
-        <h1>Examination</h1>
+        <h1>Remember below</h1>
         <WordList words={examination.words} />
       </div>
       <footer className="fixed inset-x-0 bottom-0 border-t p-4">
