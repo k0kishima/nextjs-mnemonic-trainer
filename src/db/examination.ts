@@ -81,11 +81,27 @@ export const answerExamination = async (
     const answersData = answers.map((value, index) => ({
       examinationId,
       value,
-      position: index + 1, // 回答の位置情報
+      position: index + 1,
     }));
 
     await tx.answer.createMany({
       data: answersData,
     });
+  });
+};
+
+export const getExaminationWithAnswers = async (
+  examinationId: string,
+  userId: string,
+) => {
+  return await db.examination.findUnique({
+    where: { id: examinationId, userId },
+    include: {
+      words: {
+        include: { word: true },
+        orderBy: { position: 'asc' },
+      },
+      answers: { where: { examinationId } },
+    },
   });
 };
