@@ -1,5 +1,4 @@
 import { auth } from '@/auth';
-import { getUserByEmail } from '@/db/user';
 import { getExamination } from '@/db/examination';
 import { WordList } from './word-list';
 import { RememberExaminationButton } from './buttons';
@@ -10,15 +9,11 @@ import { t } from 'i18next';
  */
 export async function Container({ examinationId }: { examinationId: string }) {
   const sessionUser = await auth().then((session) => session?.user);
-  if (!sessionUser?.email) {
-    throw new Error('No user found');
-  }
-  const user = await getUserByEmail(sessionUser.email);
-  if (!user) {
+  if (sessionUser == null) {
     throw new Error('No user found');
   }
 
-  const examination = await getExamination(examinationId, user.id);
+  const examination = await getExamination(examinationId, sessionUser.id);
   if (examination == null) {
     throw new Error(t('examination_not_found'));
   }
