@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 import Negotiator from 'negotiator';
-import { authConfig } from '@/auth.config';
+import { authConfig } from '@/auth/auth.config';
 import {
   defaultLanguage,
   availableLanguages,
