@@ -66,3 +66,26 @@ export const getExaminationsForUser = async (userId: string) => {
     },
   });
 };
+
+export const answerExamination = async (
+  examinationId: string,
+  userId: string,
+  answers: string[],
+) => {
+  return await db.$transaction(async (tx) => {
+    await tx.examination.update({
+      where: { id: examinationId, userId },
+      data: { answeredAt: new Date() },
+    });
+
+    const answersData = answers.map((value, index) => ({
+      examinationId,
+      value,
+      position: index + 1, // 回答の位置情報
+    }));
+
+    await tx.answer.createMany({
+      data: answersData,
+    });
+  });
+};
