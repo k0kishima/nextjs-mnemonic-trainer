@@ -16,6 +16,7 @@ import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { buttonVariants } from '@/components/ui/buttons';
 import { useLanguage, useTranslation, z } from '@/app/i18n/client';
+import { useRouter } from 'next/navigation';
 
 const buttonClassName = buttonVariants();
 
@@ -29,6 +30,7 @@ const ErrorMessage = ({ message }: { message?: string }) => {
  * @package
  */
 export function Form() {
+  const router = useRouter();
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
   const { language } = useLanguage();
@@ -57,6 +59,7 @@ export function Form() {
         return;
       }
 
+      router.push('/sign-in');
       toast.success(result.message);
     });
   };
