@@ -43,7 +43,7 @@ $ npm run dev
 
 ### Deployment
 
-This project is deployed on Vercel and uses Neon as the managed PostgreSQL database. Follow these steps to deploy your application to production:
+This project is deployed on [Vercel](https://vercel.com/) and uses [Neon](https://neon.tech/) as the managed PostgreSQL database. Follow these steps to deploy your application to production:
 
 1. **Set up the database on Neon:**
 
