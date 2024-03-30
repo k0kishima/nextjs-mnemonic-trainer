@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   db:
-    image: mysql:8.3
+    image: postgres:16
     environment:
-      MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_DATABASE: 'mnemonic_trainer_development'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'mnemonic_trainer_development'
     volumes:
-      - ./docker/mysql/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - ./docker/postgres/data:/var/lib/postgresql/data
     ports:
-      - '53306:3306'
+      - '54321:5432'
