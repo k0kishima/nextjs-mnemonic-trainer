@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { signOut } from '../_actions';
 
@@ -17,9 +17,26 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 export function DropdownMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpen &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
-    <nav className="relative">
+    <nav className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className={`focus:outline-none ${isOpen ? 'font-bold' : ''}`}
