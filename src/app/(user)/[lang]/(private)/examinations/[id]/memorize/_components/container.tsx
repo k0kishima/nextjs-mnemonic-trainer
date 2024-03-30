@@ -1,8 +1,9 @@
 import { auth } from '@/auth';
-import { getExamination } from '@/db/examination';
+import { getExamination, getExaminationWithAnswers } from '@/db/examination';
 import { WordList } from './word-list';
 import { RememberExaminationButton } from './buttons';
 import { t } from 'i18next';
+import { redirect } from 'next/navigation';
 
 /**
  * @package
@@ -16,6 +17,13 @@ export async function Container({ examinationId }: { examinationId: string }) {
   const examination = await getExamination(examinationId, sessionUser.id);
   if (examination == null) {
     throw new Error(t('examination_not_found'));
+  }
+
+  if (examination.answeredAt != null) {
+    redirect(`/examinations/${examinationId}/result`);
+  }
+  if (examination.rememberedAt != null) {
+    redirect(`/examinations/${examinationId}/answer`);
   }
 
   return (

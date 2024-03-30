@@ -4,6 +4,7 @@ import { t } from 'i18next';
 import { Form } from './form';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { buttonVariants } from '@/components/ui/buttons';
+import { redirect } from 'next/navigation';
 
 /**
  * @package
@@ -19,6 +20,13 @@ export async function Container({ examinationId }: { examinationId: string }) {
   const examination = await getExamination(examinationId, sessionUser.id);
   if (examination == null) {
     throw new Error(t('examination_not_found'));
+  }
+
+  if (examination.rememberedAt == null) {
+    redirect(`/examinations/${examinationId}/memorize`);
+  }
+  if (examination.answeredAt != null) {
+    redirect(`/examinations/${examinationId}/result`);
   }
 
   return (
