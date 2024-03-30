@@ -17,7 +17,7 @@ export function Form({ examinationId }: { examinationId: string }) {
 
     const result = await answerExaminationAction(examinationId, answers);
     if (result.isSuccess) {
-      window.location.href = '/dashboard';
+      window.location.href = `/examinations/${examinationId}/result`;
     } else {
       alert(result.message.error);
     }
