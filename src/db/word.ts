@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { handleDatabaseOperation } from './utils';
 
 const getRandomIds = (max: number, n: number) => {
   const ids = new Set<number>();
@@ -9,15 +10,19 @@ const getRandomIds = (max: number, n: number) => {
   return Array.from(ids);
 };
 
-// TODO: 単語がない場合はエラーとする
 export const getRandomWords = async (n: number) => {
-  const totalWords = await db.word.count();
-  const randomIds = getRandomIds(totalWords, n);
-  return await db.word.findMany({
-    where: {
-      id: {
-        in: randomIds,
+  return handleDatabaseOperation(async () => {
+    const totalWords = await db.word.count();
+    if (totalWords === 0) {
+      throw new Error('No words available');
+    }
+    const randomIds = getRandomIds(totalWords, n);
+    return await db.word.findMany({
+      where: {
+        id: {
+          in: randomIds,
+        },
       },
-    },
+    });
   });
 };
