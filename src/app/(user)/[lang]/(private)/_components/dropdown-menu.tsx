@@ -50,9 +50,6 @@ export function DropdownMenu() {
       </button>
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 rounded-md bg-white text-primary shadow-lg">
-          <Link href="/profile">
-            <span className="block px-4 py-2 text-sm">Profile</span>
-          </Link>
           <form onSubmit={onSubmit}>
             <button
               type="submit"
