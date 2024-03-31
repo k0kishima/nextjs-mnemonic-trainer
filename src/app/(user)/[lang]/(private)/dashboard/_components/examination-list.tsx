@@ -13,7 +13,7 @@ const dateFormatOptions: Intl.DateTimeFormatOptions = {
 };
 
 export const ExaminationList = async ({ userId }: { userId: string }) => {
-  const examinations = await getExaminationsForUser(userId);
+  const examinations = (await getExaminationsForUser(userId)) || [];
 
   const getLinkPath = (exam: Examination) => {
     const status = getExaminationStatus(exam);
