@@ -63,6 +63,14 @@ export const startExamination = async (
     };
   }
   const examination = await createExamination(sessionUser.id, wordQuantity);
+  if (examination == null) {
+    return {
+      isSuccess: false,
+      message: {
+        error: 'Could not create examination.',
+      },
+    };
+  }
 
   return {
     isSuccess: true,
