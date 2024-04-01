@@ -40,20 +40,23 @@ export function Form({ examinationId }: { examinationId: string }) {
 
   return (
     <>
-      <form id="answerForm" onSubmit={handleSubmit}>
-        {answers.map((answer, index) => (
-          <input
-            key={index}
-            type="text"
-            value={answer}
-            onChange={(e) => handleInputChange(index, e.target.value)}
-            className="mt-2 w-full rounded border p-2"
-            placeholder={`Answer #${index + 1}`}
-            disabled={isPending}
-          />
-        ))}
-      </form>
-      <footer className="mt-4">
+      <div className="flex-grow">
+        <h1>Please Submit Answer</h1>
+        <form id="answerForm" onSubmit={handleSubmit}>
+          {answers.map((answer, index) => (
+            <input
+              key={index}
+              type="text"
+              value={answer}
+              onChange={(e) => handleInputChange(index, e.target.value)}
+              className="mt-2 w-full rounded border p-2"
+              placeholder={`Answer #${index + 1}`}
+              disabled={isPending}
+            />
+          ))}
+        </form>
+      </div>
+      <footer className="fixed inset-x-0 bottom-0 border-t p-4">
         <button
           className={`${buttonClassName} w-full`}
           type="submit"

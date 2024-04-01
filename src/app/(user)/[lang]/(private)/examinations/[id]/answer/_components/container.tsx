@@ -27,10 +27,7 @@ export async function Container({ examinationId }: { examinationId: string }) {
 
   return (
     <div className="flex h-screen flex-col">
-      <div className="flex-grow">
-        <h1>Please Submit Answer</h1>
-        <Form examinationId={examinationId} />
-      </div>
+      <Form examinationId={examinationId} />
     </div>
   );
 }
