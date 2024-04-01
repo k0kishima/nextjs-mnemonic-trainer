@@ -1,10 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
+import { ArrowRightIcon } from '@heroicons/react/20/solid';
+import { buttonVariants } from '@/components/ui/buttons';
 import { answerExaminationAction } from '../_actions';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export function Form({ examinationId }: { examinationId: string }) {
+  const [isPending, startTransition] = useTransition();
   const [answers, setAnswers] = useState(Array(10).fill(''));
+  const router = useRouter();
+  const buttonClassName = buttonVariants();
 
   const handleInputChange = (index: number, value: string) => {
     const newAnswers = [...answers];
@@ -15,26 +22,51 @@ export function Form({ examinationId }: { examinationId: string }) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const result = await answerExaminationAction(examinationId, answers);
-    if (result.isSuccess) {
-      window.location.href = `/examinations/${examinationId}/result`;
-    } else {
-      alert(result.message.error);
+    const isConfirmed = window.confirm('Would you like to submit the answers?');
+    if (!isConfirmed) {
+      return;
     }
+
+    startTransition(async () => {
+      const result = await answerExaminationAction(examinationId, answers);
+      if (result.isSuccess) {
+        toast.success("Let's see the result!");
+        router.push(`/examinations/${examinationId}/result`);
+      } else {
+        alert(result.message.error);
+      }
+    });
   };
 
   return (
-    <form id="answerForm" onSubmit={handleSubmit}>
-      {answers.map((answer, index) => (
-        <input
-          key={index}
-          type="text"
-          value={answer}
-          onChange={(e) => handleInputChange(index, e.target.value)}
-          className="mt-2 w-full rounded border p-2"
-          placeholder={`Answer #${index + 1}`}
-        />
-      ))}
-    </form>
+    <>
+      <div className="flex-grow">
+        <h1>Please Submit Answer</h1>
+        <form id="answerForm" onSubmit={handleSubmit}>
+          {answers.map((answer, index) => (
+            <input
+              key={index}
+              type="text"
+              value={answer}
+              onChange={(e) => handleInputChange(index, e.target.value)}
+              className="mt-2 w-full rounded border p-2"
+              placeholder={`Answer #${index + 1}`}
+              disabled={isPending}
+            />
+          ))}
+        </form>
+      </div>
+      <footer className="fixed inset-x-0 bottom-0 border-t p-4">
+        <button
+          className={`${buttonClassName} w-full`}
+          type="submit"
+          form="answerForm"
+          disabled={isPending}
+        >
+          Submit
+          <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+        </button>
+      </footer>
+    </>
   );
 }
